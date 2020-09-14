@@ -1,7 +1,65 @@
+body {
+    background-image: url("Pokemon-forest.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 
-img {
-    height: 80%;
-    width: 80%;
-    margin: auto;
-    display: block;
 }
+
+.input-field {
+
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+}
+
+/* Container needed to position the button. Adjust the width as needed */
+.container {
+    position: relative;
+    width: 70%;
+}
+
+/* Make the image responsive */
+.container img {
+    width: 100%;
+    height: auto;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.container .btn {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    color: rgba(0, 0, 0, 0);
+    position: absolute;
+    overflow: hidden;
+    border: none;
+    top: 52%;
+    left: 59%;
+    cursor: pointer;
+    padding: 11px 22px;
+
+}
+
+#pokeId {
+    z-index: 1;
+}
+
+#name{
+    z-index: 1;
+}
+
+#sprite{
+    z-index: 1;
+    text-align: center;
+    color: white;
+}
+
+#moves{
+    z-index: 1;
+}
+
+
+
