@@ -29,20 +29,22 @@ The previous evolution
     function showData(pokemon) {
 
         let pokemonId = Number(document.getElementById("pokeId").value);
-        let pokemonName = Number(document.getElementById("name").value);
+        let pokemonName = document.getElementById("name").value;
 
         pokemon.forEach(poke => {
 
             if (poke.id === pokemonId) {
 
-                document.getElementById("pokeId").innerHTML = pokemon.id;
-                document.getElementById("name").innerHTML = pokemon.types[0].type.name;
-                document.getElementById("sprite").innerHTML = pokemon.sprites.front_default;
-                document.getElementById("moves").innerHTML = pokemon.moves;
+                document.getElementById("sprite").innerHTML = poke.sprites.front_default;
 
+                document.getElementById("pokeId").innerHTML = poke.id;
+                document.getElementById("name").innerHTML = poke.types[0].type.name;
+                document.getElementById("moves").innerHTML = poke.moves;
+
+                
             }
         })
 
     }
-    
+
 })();
