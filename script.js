@@ -21,21 +21,19 @@ let prevEvolutionImage = document.getElementById("prevEvolutionImage");
 let prevEvolutionName = document.getElementById("prevEvolutionName");
 let prevEvolutionInfo = document.getElementById("prevEvolutionInfo");
 
+
 var speciesUrl = "";
 
-
-
-document.getElementById("search").addEventListener("click", () => {
+document.getElementById("search").addEventListener("click", async() => {
 
     let inputElement = document.getElementById("input").value;
 
-    fetch("https://pokeapi.co/api/v2/pokemon/" + inputElement)
+    await fetch("https://pokeapi.co/api/v2/pokemon/" + inputElement)
         .then(response => response.json())
         .then(data => showData(data))
         .catch(err => console.error(err));
 
 })
-
 
 function showData(pokemon) {
 
@@ -43,16 +41,17 @@ nameElem.innerHTML = pokemon.name;
 imageElem.src = pokemon.sprites.front_default;
 pokemonIdElem.innerHTML = "#" + pokemon.id;
 typeElem.innerHTML = pokemon.types[0].type.name;
-
 movesElem.innerHTML = pokemon.moves[0].move.name;
 
 speciesUrl = pokemon.species.url;
 
+
 }
 
-document.getElementById("evolution-btn").addEventListener("click", ()=>{
 
-    fetch(speciesUrl)
+document.getElementById("evolution-btn").addEventListener("click", async()=>{
+
+    await fetch(speciesUrl)
         .then(response => response.json())
         .then(data => showEvolution(data))
         .catch(err => console.error(err))
@@ -63,6 +62,12 @@ function showEvolution(species){
 
     prevEvolutionName.innerHTML = species.evolves_from_species.name;
 
+    nameElem.innerHTML = "";
+    pokemonIdElem.innerHTML = "";
+    typeElem.innerHTML = "";
+    movesElem.innerHTML = "";
+
+
     fetch("https://pokeapi.co/api/v2/pokemon/" + species.evolves_from_species.name)
         .then(response => response.json())
         .then(data => {
@@ -71,7 +76,6 @@ function showEvolution(species){
 
         })
         .catch(err => console.error(err))
-
 
 }
 
