@@ -8,43 +8,44 @@ The previous evolution
  */
 
 
-(() => {
-    // your code here
+// your code here
 
-    let pokemonArr= [];
-    let inputElement = document.getElementById("pokeId");
-    console.log(inputElement);
+let nameElem = document.getElementById("name");
+let imageElem = document.getElementById("pokemon-image")
+let pokemonIdElem = document.getElementById("pokeId");
+let typeElem = document.getElementById("type");
+let movesElem = document.getElementById("moves");
+
+let prevEvolutionImage = document.getElementById("prevEvolutionImage");
+let prevEvolutionName = document.getElementById("prevEvolutionName");
+let prevEvolutionInfo = document.getElementById("prevEvolutionInfo");
+let pokemonInfo = document.getElementById("pokemon-info");
 
 
-    document.getElementById("search").addEventListener("click", () => {
 
-        fetch("https://pokeapi.co/api/v2/pokemon/")
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .then(data => showData(data))
-            .catch(err => console.error(err));
 
-    })
+document.getElementById("search").addEventListener("click", () => {
 
-    function showData(pokemon) {
+    let inputElement = document.getElementById("input").value;
 
-        let pokemonId = Number(document.getElementById("pokeId").value);
-        let pokemonName = document.getElementById("name").value;
+    fetch("https://pokeapi.co/api/v2/pokemon/" + inputElement)
+        .then(response => response.json())
+        .then(data => showData(data))
+        .catch(err => console.error(err));
 
-        pokemon.forEach(poke => {
+})
 
-            if (poke.id === pokemonId) {
+document.getElementById("evolution-btn").addEventListener("click", getPrevEvolution);
 
-                document.getElementById("sprite").innerHTML = poke.sprites.front_default;
+function showData(pokemon) {
 
-                document.getElementById("pokeId").innerHTML = poke.id;
-                document.getElementById("name").innerHTML = poke.types[0].type.name;
-                document.getElementById("moves").innerHTML = poke.moves;
+    let { id, moves, name, sprites, types } = pokemon;
 
-                
-            }
-        })
+nameElem.textContent = name;
+imageElem.src = sprites.other["official-artwork"].front_default;
+pokemonIdElem.textContent = "#" + id;
+typeElem.textContent = types[0].type.name;
 
-    }
+}
 
-})();
+
