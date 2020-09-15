@@ -28,6 +28,9 @@ document.getElementById("search").addEventListener("click", async() => {
 
     let inputElement = document.getElementById("input").value;
 
+    prevEvolutionName.innerHTML = "";
+    prevEvolutionImage.src = "";
+
     await fetch("https://pokeapi.co/api/v2/pokemon/" + inputElement)
         .then(response => response.json())
         .then(data => showData(data))
@@ -41,11 +44,23 @@ nameElem.innerHTML = pokemon.name;
 imageElem.src = pokemon.sprites.front_default;
 pokemonIdElem.innerHTML = "#" + pokemon.id;
 typeElem.innerHTML = pokemon.types[0].type.name;
-movesElem.innerHTML = pokemon.moves[0].move.name;
+movesElem.innerHTML = getMoves(pokemon.moves);
+
+//movesElem.innerHTML = pokemon.moves[0].move.name;
 
 speciesUrl = pokemon.species.url;
 
+}
 
+function getMoves(moves) {
+    let movenames = "";
+    let minvalue = 0;
+    let maxvalue = moves.length;
+    for (i = 0; i < 4; i++) {
+        let rand = Math.floor((Math.random() * maxvalue) + minvalue);
+        movenames += moves[rand].move.name + ", ";
+    }
+    return movenames;
 }
 
 
@@ -58,9 +73,10 @@ document.getElementById("evolution-btn").addEventListener("click", async()=>{
 
 })
 
+
 function showEvolution(species){
 
-    prevEvolutionName.innerHTML = species.evolves_from_species.name;
+    prevEvolutionName.innerHTML = "Evolution: " + species.evolves_from_species.name;
 
     nameElem.innerHTML = "";
     pokemonIdElem.innerHTML = "";
