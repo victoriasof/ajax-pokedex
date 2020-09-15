@@ -52,6 +52,7 @@ speciesUrl = pokemon.species.url;
 
 }
 
+//generates four random moves 
 function getMoves(moves) {
     let movenames = "";
     let minvalue = 0;
