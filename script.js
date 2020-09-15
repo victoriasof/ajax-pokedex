@@ -15,12 +15,13 @@ let imageElem = document.getElementById("pokemon-image")
 let pokemonIdElem = document.getElementById("pokeId");
 let typeElem = document.getElementById("type");
 let movesElem = document.getElementById("moves");
+let pokemonInfo = document.getElementById("pokemon-info");
 
 let prevEvolutionImage = document.getElementById("prevEvolutionImage");
 let prevEvolutionName = document.getElementById("prevEvolutionName");
 let prevEvolutionInfo = document.getElementById("prevEvolutionInfo");
-let pokemonInfo = document.getElementById("pokemon-info");
 
+var speciesUrl = "";
 
 
 
@@ -35,17 +36,42 @@ document.getElementById("search").addEventListener("click", () => {
 
 })
 
-document.getElementById("evolution-btn").addEventListener("click", getPrevEvolution);
 
 function showData(pokemon) {
 
-    let { id, moves, name, sprites, types } = pokemon;
+nameElem.innerHTML = pokemon.name;
+imageElem.src = pokemon.sprites.front_default;
+pokemonIdElem.innerHTML = "#" + pokemon.id;
+typeElem.innerHTML = pokemon.types[0].type.name;
 
-nameElem.textContent = name;
-imageElem.src = sprites.other["official-artwork"].front_default;
-pokemonIdElem.textContent = "#" + id;
-typeElem.textContent = types[0].type.name;
+movesElem.innerHTML = pokemon.moves[0].move.name;
+
+speciesUrl = pokemon.species.url;
 
 }
 
+document.getElementById("evolution-btn").addEventListener("click", ()=>{
+
+    fetch(speciesUrl)
+        .then(response => response.json())
+        .then(data => showEvolution(data))
+        .catch(err => console.error(err))
+
+})
+
+function showEvolution(species){
+
+    prevEvolutionName.innerHTML = species.evolves_from_species.name;
+
+    fetch("https://pokeapi.co/api/v2/pokemon/" + species.evolves_from_species.name)
+        .then(response => response.json())
+        .then(data => {
+
+            prevEvolutionImage.src = data.sprites.front_default;
+
+        })
+        .catch(err => console.error(err))
+
+
+}
 
