@@ -1,6 +1,7 @@
 
 https://victoriasof.github.io/ajax-pokedex/
 
+Deployed with firebase: https://fir-project-e7c0c.web.app/
 
 # AJAX Pokédex
 
